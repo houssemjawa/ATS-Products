@@ -7,6 +7,14 @@
 <h1>Products</h1>
 <input ng-model = "search">
 <div id = "wrapper" ng-controller="productsCtrl">
+  <simple-pagination
+  current-page="settings.currentPage"
+  offset="settings.offset"
+  page-limit="settings.pageLimit"
+  page-limits="settings.pageLimits"
+  on-update="callback()"
+  total="values.length">
+</simple-pagination>
 <div class="second">
   <table>
     <tr>
@@ -18,7 +26,7 @@
       <th>delivery</th>
 </th>
     </tr>
-    <tr ng-repeat="value in values| filter:search | orderBy : '+category' ">
+    <tr ng-repeat="value in values| filter:search | orderBy : '+category' | limitTo:settings.pageLimit:settings.offset">
       <td>{{value.productName}}</td>
       <td>{{value.basePrice}}</td>
       <td>{{value.category}}</td>
@@ -32,6 +40,7 @@
 </body>
 <script src="./angular/angular.min.js"></script>
 <script src = "./module.js"></script>
+ <script src="https://rawgit.com/raoulus/angular-simple-pagination/github/dist/angular-simple-pagination.js"></script>
 <style>
 table {
     font-family: arial, sans-serif;
